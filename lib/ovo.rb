@@ -1,5 +1,6 @@
 require "ovo/version"
 
 module Ovo
-  # Your code goes here...
+  def self.run(program)
+  end
 end
