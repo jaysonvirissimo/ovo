@@ -1,8 +1,6 @@
 # Ovo
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ovo`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+*Ovo* is an implementation of Egg, a LISP-like programming language by [Marijn Haverbeke](https://marijnhaverbeke.nl/).
 
 ## Installation
 
@@ -22,7 +20,18 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+program = <<~PROGRAM
+  do(define(total, 0),
+    define(count, 1),
+    while(<(count, 11),
+          do(define(total, +(total, count)),
+             define(count, +(count, 1)))),
+    print(total))
+PROGRAM
+
+Ovo.run(program) # => 55
+```
 
 ## Development
 
