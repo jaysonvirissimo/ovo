@@ -1,10 +1,10 @@
+require_relative 'string_expression'
+require_relative 'number_expression'
+require_relative 'word_expression'
+
 module Ovo
   class Parser
-    EXPRESSION_TYPES = {
-      string: /^"([^"]*)"/,
-      number: /^\d+\b/,
-      word: /^[^\s(),#"]+/
-    }.freeze
+    EXPRESSION_TYPES = [StringExpression, NumberExpression, WordExpression].freeze
 
     def self.call(program)
       result = parse_expression(program)
@@ -18,25 +18,14 @@ module Ovo
 
     def self.parse_expression(program)
       program = skip_spaces(program)
-      match = nil
 
-      expression_type = EXPRESSION_TYPES.find do |_type, pattern|
-        match = program.scan(pattern)
-        match.length.positive?
-      end
+      expression = EXPRESSION_TYPES.map do |expression_type|
+        expression_type.new(program)
+      end.find(&:valid?)
 
-      expression = case expression_type.first
-                   when :string
-                     { type: 'value', value: match[1] }
-                   when :number
-                     { type: 'value', value: match[0].to_i }
-                   when :word
-                     { type: 'word', value: match[0] }
-                   else
-                     raise 'nope'
-      end
+      raise SyntaxError.new("Unexpected syntax: #{program}") if expression.nil?
 
-      parse_apply(expression, program.chars.drop(match.first.length).join)
+      parse_apply(expression.to_h, expression.program_remaining)
     end
 
     def self.parse_apply(expr, program)

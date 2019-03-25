@@ -1,4 +1,4 @@
-# Ovo
+# Ovo (Work In Progress)
 
 *Ovo* is an implementation of Egg, a LISP-like programming language by [Marijn Haverbeke](https://marijnhaverbeke.nl/).
 
