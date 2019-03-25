@@ -8,12 +8,14 @@ RSpec.describe Ovo::Parser do
       let(:second_argument) { arguments.last }
       let(:syntax_tree) { described_class.call(program) }
 
-      it 'builds the proper syntax tree' do
-        expect(syntax_tree[:type]).to eq('apply')
-        expect(operator[:type]).to eq('word')
-        expect(operator[:value]).to eq('+')
-        expect(first_argument[:type]).to eq('word')
-        expect(first_argument[:value]).to eq('a')
+      describe 'builds the proper syntax tree' do
+        it { expect(syntax_tree[:type]).to eq('apply') }
+        it { expect(operator[:type]).to eq('word') }
+        it { expect(operator[:name]).to eq('+') }
+        it { expect(first_argument[:type]).to eq('word') }
+        it { expect(first_argument[:name]).to eq('a') }
+        it { expect(second_argument[:type]).to eq('value') }
+        it { expect(second_argument[:value]).to eq(10) }
       end
     end
   end

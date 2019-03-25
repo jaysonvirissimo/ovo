@@ -3,7 +3,7 @@ require_relative 'abstract_expression'
 module Ovo
   class WordExpression < AbstractExpression
     def to_h
-      { type: 'word', value: match.first }
+      { type: 'word', name: match.first }
     end
 
     def program_remaining
