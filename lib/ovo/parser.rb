@@ -1,3 +1,4 @@
+require_relative 'apply_expression'
 require_relative 'string_expression'
 require_relative 'number_expression'
 require_relative 'word_expression'
@@ -18,11 +19,11 @@ module Ovo
       return { expr: expr, rest: program } if program[0] != '('
 
       program = skip_spaces(program.chars.drop(1).join)
-      expr = { type: 'apply', operator: expr, args: [] }
+      apply_expression = ApplyExpression.new(expr)
 
       while program[0] != ')'
         arg = ExpressionParser.new(program).call
-        expr[:args].push(arg[:expr])
+        apply_expression.add_argument(arg[:expr])
         program = skip_spaces(arg[:rest])
 
         if program[0] == ','
@@ -32,7 +33,7 @@ module Ovo
         end
       end
 
-      parse_apply(expr, program.slice(1))
+      parse_apply(apply_expression.to_h, program.slice(1))
     end
 
     def self.skip_spaces(string)
