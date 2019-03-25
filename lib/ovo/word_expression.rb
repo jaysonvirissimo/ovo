@@ -16,10 +16,8 @@ module Ovo
 
     private
 
-    PATTERN = /^[^\s(),#"]+/
-
-    def match
-      @match ||= program.scan(PATTERN)
+    def pattern
+      /^[^\s(),#"]+/
     end
   end
 end

@@ -19,5 +19,9 @@ module Ovo
     private
 
     attr_reader :program
+
+    def match
+      @match ||= program.scan(pattern)
+    end
   end
 end

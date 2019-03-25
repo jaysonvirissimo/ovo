@@ -23,7 +23,7 @@ module Ovo
         expression_type.new(program)
       end.find(&:valid?)
 
-      raise SyntaxError.new("Unexpected syntax: #{program}") if expression.nil?
+      raise SyntaxError, "Unexpected syntax: #{program}" if expression.nil?
 
       parse_apply(expression.to_h, expression.program_remaining)
     end
