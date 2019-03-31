@@ -1,7 +1,11 @@
 require_relative 'parser'
+require_relative 'expression_applier'
+require_relative 'space_skippable'
 
 module Ovo
   class ExpressionParser
+    include SpaceSkippable
+
     ATOMIC_ELEMENTS = [
       StringExpression,
       NumberExpression,
@@ -9,14 +13,14 @@ module Ovo
     ].freeze
 
     def initialize(program)
-      @program = program&.strip || ''
+      @program = skip_spaces(program)
     end
 
     def call
       if expression.nil?
         raise SyntaxError, "Unexpected syntax: #{program}"
       else
-        Parser.parse_apply(expression.to_h, expression.program_remaining)
+        ExpressionApplier.call(expression.to_h, expression.program_remaining)
       end
     end
 
