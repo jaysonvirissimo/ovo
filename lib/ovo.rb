@@ -1,3 +1,4 @@
+require 'ovo/evaluator'
 require 'ovo/version'
 require 'ovo/parser'
 require 'ovo/global_scope'
