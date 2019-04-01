@@ -3,28 +3,65 @@ require_relative 'space_skippable'
 
 module Ovo
   class ExpressionApplier
-    extend SpaceSkippable
+    include SpaceSkippable
 
     def self.call(expr, program)
-      program = skip_spaces(program)
-      return { expr: expr, rest: program } if program[0] != '('
+      new(expr, program).call
+    end
 
-      program = skip_spaces(program.chars.drop(1).join)
-      apply_expression = ApplyExpression.new(expr)
+    def initialize(expression, program)
+      @expression = expression
+      @program = skip_spaces(program)
+    end
 
-      while program[0] != ')'
-        arg = ExpressionParser.new(program).call
-        apply_expression.add_argument(arg[:expr])
-        program = skip_spaces(arg[:rest])
+    def call
+      if start_of_arguments?
+        continue_reading_at(program.chars.drop(1).join)
+        apply_expression
+        add_arguments
+        self.class.new(applied_expression.to_h, program.slice(1)).call
+      else
+        { expr: expression, rest: program }
+      end
+    end
 
-        if program[0] == ','
-          program = skip_spaces(program.chars.drop(1).join)
-        elsif program[0] != ')'
-          raise "Expected ',' or ')'"
+    private
+
+    attr_reader :applied_expression, :expression
+    attr_accessor :program
+
+    def add_arguments
+      until end_of_arguments?
+        next_argument = ExpressionParser.new(program).call
+        applied_expression.add_argument(next_argument[:expr])
+        continue_reading_at(next_argument[:rest])
+
+        if argument_separator?
+          continue_reading_at(program.chars.drop(1).join)
+        elsif !end_of_arguments?
+          raise SyntaxError, "Expected ',' or ')'"
         end
       end
+    end
 
-      call(apply_expression.to_h, program.slice(1))
+    def apply_expression
+      @applied_expression = ApplyExpression.new(expression)
+    end
+
+    def argument_separator?
+      program[0] == ','
+    end
+
+    def continue_reading_at(program)
+      self.program = skip_spaces(program)
+    end
+
+    def end_of_arguments?
+      program[0] == ')'
+    end
+
+    def start_of_arguments?
+      program[0] == '('
     end
   end
 end
