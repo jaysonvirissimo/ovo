@@ -1,6 +1,6 @@
 RSpec.describe Ovo::KeyWords do
   describe '.if' do
-    let(:scope) { Ovo::GlobalScope }
+    let(:scope) { Ovo::GlobalScope.new }
 
     context 'when the antecendent is true' do
       let(:arguments) { [true, 1, 2] }

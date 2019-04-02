@@ -1,7 +1,7 @@
 RSpec.describe Ovo::Evaluator do
   describe '#call' do
     context 'with a string expression' do
-      let(:instance) { described_class.new(syntax_tree, Ovo::GlobalScope) }
+      let(:instance) { described_class.new(syntax_tree, Ovo::GlobalScope.new) }
       let(:syntax_tree) do
         { type: 'value', value: 'foo' }
       end

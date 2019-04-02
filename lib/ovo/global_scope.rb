@@ -1,10 +1,12 @@
+require 'ostruct'
+
 module Ovo
-  module GlobalScope
-    def self.false
+  class GlobalScope < OpenStruct
+    def false
       false
     end
 
-    def self.true
+    def true
       true
     end
   end
