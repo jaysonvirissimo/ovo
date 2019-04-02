@@ -1,4 +1,5 @@
 require_relative 'value_evaluator'
+require_relative 'word_evaluator'
 
 module Ovo
   class Evaluator
@@ -13,8 +14,8 @@ module Ovo
 
     def call
       self.class.const_get("Ovo::#{expression[:type].capitalize}Evaluator")
-        .new(expression, scope)
-        .call
+          .new(expression, scope)
+          .call
     end
 
     private
