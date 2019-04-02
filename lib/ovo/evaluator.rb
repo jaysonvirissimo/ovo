@@ -1,3 +1,4 @@
+require_relative 'apply_evaluator'
 require_relative 'value_evaluator'
 require_relative 'word_evaluator'
 
