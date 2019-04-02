@@ -13,9 +13,11 @@ module Ovo
     end
 
     def call
-      self.class.const_get("Ovo::#{expression[:type].capitalize}Evaluator")
-          .new(expression, scope)
-          .call
+      self
+        .class
+        .const_get("Ovo::#{expression[:type].capitalize}Evaluator")
+        .new(expression, scope)
+        .call
     end
 
     private

@@ -5,5 +5,7 @@ require 'ovo/global_scope'
 require 'ovo/key_words'
 
 module Ovo
-  def self.run(program); end
+  def self.run(program)
+    Evaluator.call(Parser.call(program), GlobalScope.new)
+  end
 end
