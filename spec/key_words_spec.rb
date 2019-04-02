@@ -49,4 +49,15 @@ RSpec.describe Ovo::KeyWords do
       expect { described_class.print(value) }.to output(/#{value}/).to_stdout
     end
   end
+
+  describe '.while' do
+    context 'with the wrong number of arguments' do
+      let(:arguments) { [1, :dois, 3, :quatro] }
+
+      it 'raises an error' do
+        calling = -> { described_class.while(arguments, Ovo::GlobalScope.new) }
+        expect { calling.call }.to raise_error(ArgumentError)
+      end
+    end
+  end
 end

@@ -18,5 +18,16 @@ module Ovo
       puts value
       value
     end
+
+    def self.while(arguments, scope)
+      raise ArgumentError unless arguments.length == 2
+
+      (0..).each do |_index|
+        break unless OvoEvaluator.call(arguments[0], scope)
+        OvoEvaluator.call(arguments[1], scope)
+      end
+
+      false
+    end
   end
 end
