@@ -1,4 +1,14 @@
 RSpec.describe Ovo::KeyWords do
+  describe '.do' do
+    let(:arguments) { ['yes'] }
+    let(:scope) { Ovo::GlobalScope.new }
+
+    it 'returns the value of the final evaluation' do
+      allow(Ovo::Evaluator).to receive(:call).with('yes', scope).and_return(:sim)
+      expect(described_class.do(arguments, scope)).to eq(:sim)
+    end
+  end
+
   describe '.if' do
     let(:scope) { Ovo::GlobalScope.new }
 
