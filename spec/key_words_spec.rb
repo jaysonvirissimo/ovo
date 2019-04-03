@@ -1,4 +1,27 @@
 RSpec.describe Ovo::KeyWords do
+  describe '.define' do
+    let(:scope) { Ovo::GlobalScope.new }
+    subject { described_class.define(arguments, scope) }
+
+    context 'with the correct number of arguments' do
+      let(:number_expression) { { type: 'value', value: 42 } }
+      let(:arguments) { ['x', number_expression] }
+
+      it 'defines a new word reference' do
+        subject
+        expect(scope.x).to eq(42)
+      end
+    end
+
+    context 'with the wrong number of arguments' do
+      let(:arguments) { ['yes'] }
+
+      it 'raises and error' do
+        expect { subject }.to raise_error(ArgumentError)
+      end
+    end
+  end
+
   describe '.do' do
     let(:arguments) { ['yes'] }
     let(:scope) { Ovo::GlobalScope.new }
