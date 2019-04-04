@@ -1,27 +1,9 @@
 module Ovo
   module StandardLibrary
-    def +(a, b)
-      a + b
-    end
-
-    def -(a, b)
-      a - b
-    end
-
-    def *(a, b)
-      a * b
-    end
-
-    def /(a, b)
-      a / b
-    end
-
-    def <(a, b)
-      a < b
-    end
-
-    def >(a, b)
-      a > b
+    ['+', '-', '>', '<', '*', '/', '%'].each do |operator|
+      define_method(operator) do |a, b|
+        a.send(operator, b)
+      end
     end
   end
 end
