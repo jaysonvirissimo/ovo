@@ -8,7 +8,7 @@ module Ovo
       end
     end
 
-    def self.do(arguments, scope)
+    def self.do(arguments = [], scope)
       arguments.each_with_object(value: nil) do |argument, hash|
         hash[:value] = Ovo::Evaluator.call(argument, scope)
       end[:value]
@@ -22,7 +22,7 @@ module Ovo
         Ovo::Evaluator.call(arguments[2], scope)
     end
 
-    def self.print(value)
+    def self.print(value, scope)
       puts value
       value
     end
@@ -31,8 +31,8 @@ module Ovo
       raise ArgumentError unless arguments.length == 2
 
       (0..).each do |_index|
-        break unless OvoEvaluator.call(arguments[0], scope)
-        OvoEvaluator.call(arguments[1], scope)
+        break unless Ovo::Evaluator.call(arguments[0], scope)
+        Ovo::Evaluator.call(arguments[1], scope)
       end
 
       false
