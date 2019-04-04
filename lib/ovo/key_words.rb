@@ -23,6 +23,7 @@ module Ovo
     end
 
     def self.print(value, scope)
+      # TODO: This should take an expression, not a value.
       puts value
       value
     end
