@@ -1,7 +1,7 @@
 RSpec.describe Ovo::Parser do
   describe '.call' do
     context 'with a simple expression' do
-      let(:arguments) { syntax_tree[:args] }
+      let(:arguments) { syntax_tree[:arguments] }
       let(:first_argument) { arguments.first }
       let(:operator) { syntax_tree[:operator] }
       let(:program) { '+(a, 10)' }
