@@ -6,7 +6,9 @@ module Ovo
     end
 
     def call
-      if key_word?
+      if scope.respond_to?(operator_name)
+        scope.send(operator_name, arguments)
+      elsif key_word?
         KeyWords.send(operator_name, arguments, scope)
       else
         raise TypeError
