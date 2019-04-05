@@ -6,8 +6,7 @@ module Ovo
     end
 
     def to_h
-      # TODO: Be consistent about args versus arguments.
-      { type: 'apply', operator: operator, args: arguments }
+      { type: 'apply', operator: operator, arguments: arguments }
     end
 
     def add_argument(argument)
