@@ -22,10 +22,10 @@ module Ovo
         Ovo::Evaluator.call(arguments[2], scope)
     end
 
-    def self.print(value, scope)
-      # TODO: This should take an expression, not a value.
-      puts value
-      value
+    def self.print(arguments, scope)
+      arguments.first.fetch(:value).tap do |value|
+        puts value
+      end
     end
 
     def self.while(arguments, scope)
