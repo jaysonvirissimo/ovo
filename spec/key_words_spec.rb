@@ -1,6 +1,7 @@
 RSpec.describe Ovo::KeyWords do
+  let(:scope) { Ovo::GlobalScope.new }
+
   describe '.define' do
-    let(:scope) { Ovo::GlobalScope.new }
     subject { described_class.define(arguments, scope) }
 
     context 'with the correct number of arguments' do
@@ -24,7 +25,6 @@ RSpec.describe Ovo::KeyWords do
 
   describe '.do' do
     let(:arguments) { ['yes'] }
-    let(:scope) { Ovo::GlobalScope.new }
 
     it 'returns the value of the final evaluation' do
       allow(Ovo::Evaluator).to receive(:call).with('yes', scope).and_return(:sim)
@@ -33,8 +33,6 @@ RSpec.describe Ovo::KeyWords do
   end
 
   describe '.if' do
-    let(:scope) { Ovo::GlobalScope.new }
-
     context 'when the antecendent is true' do
       let(:arguments) { [true, 1, 2] }
 
@@ -66,10 +64,11 @@ RSpec.describe Ovo::KeyWords do
   end
 
   describe '.print' do
-    let(:value) { 'ovos verdes e presunto' }
+    let(:value) { 'Hello, world!' }
+    let(:arguments) { [{ type: 'value', value: value }] }
 
     it 'outputs to standard out' do
-      expect { described_class.print(value) }.to output(/#{value}/).to_stdout
+      expect { described_class.print(arguments, scope) }.to output(/#{value}/).to_stdout
     end
   end
 
@@ -78,7 +77,7 @@ RSpec.describe Ovo::KeyWords do
       let(:arguments) { [1, :dois, 3, :quatro] }
 
       it 'raises an error' do
-        calling = -> { described_class.while(arguments, Ovo::GlobalScope.new) }
+        calling = -> { described_class.while(arguments, scope) }
         expect { calling.call }.to raise_error(ArgumentError)
       end
     end
