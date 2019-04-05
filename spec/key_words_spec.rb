@@ -5,8 +5,9 @@ RSpec.describe Ovo::KeyWords do
     subject { described_class.define(arguments, scope) }
 
     context 'with the correct number of arguments' do
+      let(:word_expression) { { type: 'word', name: 'x'} }
       let(:number_expression) { { type: 'value', value: 42 } }
-      let(:arguments) { ['x', number_expression] }
+      let(:arguments) { [word_expression, number_expression] }
 
       it 'defines a new word reference' do
         subject

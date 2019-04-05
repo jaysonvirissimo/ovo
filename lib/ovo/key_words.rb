@@ -4,7 +4,7 @@ module Ovo
       raise ArgumentError unless arguments.length == 2
 
       Ovo::Evaluator.call(arguments[1], scope).tap do |evaluated|
-        scope.send("#{arguments[0]}=", evaluated)
+        scope.send("#{arguments[0][:name]}=", evaluated)
       end
     end
 
@@ -23,8 +23,17 @@ module Ovo
     end
 
     def self.print(arguments, scope)
-      arguments.first.fetch(:value).tap do |value|
+      expression = arguments.first
+
+      if expression[:type] == 'value'
+        puts expression[:value]
+        expression[:value]
+      elsif expression[:type] == 'word'
+        value = scope.send(expression[:name])
         puts value
+        value
+      else
+        fail
       end
     end
 
