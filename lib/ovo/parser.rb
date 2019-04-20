@@ -14,7 +14,7 @@ module Ovo
         if skip_spaces(result[:rest]).length.positive?
           raise SyntaxError, 'Unexpected text after program'
         end
-      end[:expr]
+      end[:expression]
     end
   end
 end

@@ -21,7 +21,7 @@ module Ovo
         add_arguments
         self.class.new(applied_expression.to_h, program.chars.drop(1).join).call
       else
-        { expr: expression, rest: program }
+        { expression: expression, rest: program }
       end
     end
 
@@ -33,7 +33,7 @@ module Ovo
     def add_arguments
       until end_of_arguments?
         next_argument = ExpressionParser.new(program).call
-        applied_expression.add_argument(next_argument[:expr])
+        applied_expression.add_argument(next_argument[:expression])
         continue_reading_at(next_argument[:rest])
 
         if argument_separator?
