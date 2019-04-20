@@ -5,8 +5,8 @@ module Ovo
   class ExpressionApplier
     include SpaceSkippable
 
-    def self.call(expr, program)
-      new(expr, program).call
+    def self.call(expression, program)
+      new(expression, program).call
     end
 
     def initialize(expression, program)
