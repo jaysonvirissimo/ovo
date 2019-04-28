@@ -19,7 +19,7 @@ module Ovo
         continue_reading_at(program.chars.drop(1).join)
         apply_expression
         add_arguments
-        self.class.new(applied_expression.to_h, program.chars.drop(1).join).call
+        self.class.new(applied_expression, program.chars.drop(1).join).call
       else
         { expression: expression, rest: program }
       end

@@ -5,8 +5,8 @@ RSpec.describe Ovo::KeyWords do
     subject { described_class.define(arguments, scope) }
 
     context 'with the correct number of arguments' do
-      let(:word_expression) { { type: 'word', name: 'x' } }
-      let(:number_expression) { { type: 'value', value: 42 } }
+      let(:word_expression) { double(type: 'word', name: 'x') }
+      let(:number_expression) { double(type: 'value', value: 42) }
       let(:arguments) { [word_expression, number_expression] }
 
       it 'defines a new word reference' do
@@ -16,7 +16,7 @@ RSpec.describe Ovo::KeyWords do
     end
 
     context 'with the wrong number of arguments' do
-      let(:expression) { { type: 'value', name: 1 } }
+      let(:expression) { double(type: 'value', name: 1) }
       let(:arguments) { [expression] }
 
       it 'raises and error' do
@@ -26,7 +26,7 @@ RSpec.describe Ovo::KeyWords do
   end
 
   describe '.do' do
-    let(:expression) { { type: 'value', value: 1 } }
+    let(:expression) { double(type: 'value', value: 1) }
     let(:arguments) { [expression] }
 
     it 'returns the value of the final evaluation' do
@@ -40,8 +40,8 @@ RSpec.describe Ovo::KeyWords do
 
   describe '.if' do
     context 'when the antecendent is true' do
-      let(:first_expression) { { type: 'value', value: 1 } }
-      let(:second_expression) { { type: 'value', value: 2 } }
+      let(:first_expression) { double(type: 'value', value: 1) }
+      let(:second_expression) { double(type: 'value', value: 2) }
       let(:arguments) { [true, first_expression, second_expression] }
 
       it 'sends the second argument for evaluation' do
@@ -54,8 +54,8 @@ RSpec.describe Ovo::KeyWords do
     end
 
     context 'when the antecendent is false' do
-      let(:first_expression) { { type: 'value', value: 1 } }
-      let(:second_expression) { { type: 'value', value: 2 } }
+      let(:first_expression) { double(type: 'value', value: 1) }
+      let(:second_expression) { double(type: 'value', value: 2) }
       let(:arguments) { [false, first_expression, second_expression] }
 
       it 'sends the third argument for evaluation' do
@@ -68,9 +68,9 @@ RSpec.describe Ovo::KeyWords do
     end
 
     context 'with the wrong number of arguments' do
-      let(:first_expression) { { type: 'value', value: 1 } }
-      let(:second_expression) { { type: 'value', value: 2 } }
-      let(:third_expression) { { type: 'value', value: 3 } }
+      let(:first_expression) { double(type: 'value', value: 1) }
+      let(:second_expression) { double(type: 'value', value: 2) }
+      let(:third_expression) { double(type: 'value', value: 3) }
       let(:arguments) do
         [false, first_expression, second_expression, third_expression]
       end
@@ -84,7 +84,7 @@ RSpec.describe Ovo::KeyWords do
 
   describe '.print' do
     let(:value) { 'Hello, world!' }
-    let(:arguments) { [{ type: 'value', value: value }] }
+    let(:arguments) { [double(type: 'value', value: value)] }
 
     it 'outputs to standard out' do
       expect { described_class.print(arguments, scope) }.to output(/#{value}/).to_stdout

@@ -20,7 +20,7 @@ module Ovo
       if expression.nil?
         raise SyntaxError, "Unexpected syntax: #{program}"
       else
-        ExpressionApplier.call(expression.to_h, expression.program_remaining)
+        ExpressionApplier.call(expression, expression.program_remaining)
       end
     end
 

@@ -18,7 +18,7 @@ module Ovo
     attr_reader :expression, :scope
 
     def name
-      @name ||= expression[:name].intern
+      @name ||= expression.name
     end
   end
 end

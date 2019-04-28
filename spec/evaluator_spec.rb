@@ -7,7 +7,11 @@ RSpec.describe Ovo::Evaluator do
         context 'that is not a function' do
           let(:scope) { Ovo::GlobalScope.new }
           let(:syntax_tree) do
-            { type: 'apply', operator: 'indefinido', arguments: [] }
+            double(
+              type: 'apply',
+              operator: double(name: 'indefinido', type: 'value'),
+              arguments: []
+            )
           end
 
           it 'raises an error' do
@@ -19,16 +23,14 @@ RSpec.describe Ovo::Evaluator do
 
     context 'with a string expression' do
       let(:scope) { Ovo::GlobalScope.new }
-      let(:syntax_tree) do
-        { type: 'value', value: 'foo' }
-      end
+      let(:syntax_tree) { double(type: 'value', value: 'foo') }
 
       it { expect(instance.call).to match(/foo/) }
     end
 
     context 'with a word expression' do
       let(:syntax_tree) do
-        { type: 'word', name: 'palavra' }
+        double(type: 'word', name: 'palavra')
       end
 
       context 'that is defined within the local scope' do

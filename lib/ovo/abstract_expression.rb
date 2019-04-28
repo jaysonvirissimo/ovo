@@ -4,11 +4,11 @@ module Ovo
       @program = program
     end
 
-    def to_h
+    def program_remaining
       raise NotImplementedError
     end
 
-    def program_remaining
+    def type
       raise NotImplementedError
     end
 

@@ -20,19 +20,19 @@ module Ovo
     attr_reader :expression, :scope
 
     def arguments
-      expression[:arguments]
+      expression.arguments
     end
 
     def key_word?
-      operator[:type] == 'word' && KeyWords.respond_to?(operator_name)
+      operator.type == 'word' && KeyWords.respond_to?(operator_name)
     end
 
     def operator
-      expression[:operator]
+      expression.operator
     end
 
     def operator_name
-      operator[:name].intern
+      operator.name
     end
   end
 end

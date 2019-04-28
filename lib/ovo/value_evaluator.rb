@@ -5,7 +5,7 @@ module Ovo
     end
 
     def call
-      expression[:value]
+      expression.value
     end
 
     attr_reader :expression
